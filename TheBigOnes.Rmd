@@ -1,0 +1,72 @@
+---
+title: "The Big Ones"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+---
+
+## The Big Ones
+
+The big ones, where you’re going to make the big money with the best contracts, are really just Delta, United, American, FedEx, and UPS.  OK, let's look at what proportion of flights in NYC for the year 2013 were one of these "big ones".  "Carrier" field is the name of the airline: 
+
+* "DL" for Delta
+* "UA" for United
+* "AA" for American
+* "FX" for Federal Express Corporation
+* "5X" for United Parcel Service
+
+First we need to import Libraries.  This imports the data set of flights and tidyverse is packages for manipulating the data.
+
+```{r libraries, echo=FALSE}
+library(nycflights13)
+library(tidyverse)
+```
+
+The data "flights" has many columns or variables
+```{r, echo=FALSE}
+colnames(flights)
+```
+
+We are only interested in the carrier so let's make dataframe with just "flight" and "carrier". And we'll look at first few lines and the total number of flights in this data.
+```{r, df, echo=FALSE}
+carriers <- flights %>% select("flight", "carrier")
+carriers
+nrow(carriers)
+```
+
+Now let's find the number of flights that just the "big ones" and calculate the proportion
+```{r big}
+n.big.ones <- carriers %>% filter(carrier == "DL" | carrier == "UA" |
+                                    carrier == "AA" | carrier == "FX" |
+                                    carrier == "5X") %>% nrow()
+n.big.ones
+pro.big.ones <- n.big.ones / nrow(carriers)
+pro.big.ones
+```
+
+So, it looks like in 2013 in NYC there were total of 336776 flights with 91394 were the "big ones" and that gives proportion of 0.2713792
+
+This here just list the number of flights grouped by carrier.  The B6 is Bluejet.  EV is ExpressJet Airlines (?).  This R code might not be easy to read because it uses this thing call pipe: %>%.  But basically we start with the data carriers; feed that to group_by which groups by carrier; feed that to summerize which finds the count for each carrier; finally arrange from largers.  And there seems to be only 16 carriers.
+```{r unique}
+carriers %>% group_by(carrier) %>% summarize(count=n()) %>% arrange(desc(count))
+```
+
+So, UA, B6 and EV and even DL have about same so let's see just UA proportiong
+```{r UA}
+n.UA <- carriers %>% filter(carrier == "UA") %>% nrow()
+n.UA
+pro.UA <- n.UA / nrow(carriers)
+pro.UA
+```
+
+Now take top 5 and see proportion:
+```{r topFive}
+n.top.five <- carriers %>% filter(carrier == "UA" | carrier == "B6" |
+                                    carrier == "EV" | carrier == "DL" |
+                                    carrier == "AA") %>% nrow()
+n.top.five
+pro.top.five <- n.top.five / nrow(carriers)
+pro.top.five
+```

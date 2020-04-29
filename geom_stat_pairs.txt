@@ -1,0 +1,8 @@
+geom_bar, geom_col              stat_count, stat_identity
+geom_bin2d                      stat_bin
+geom_boxplot                    stat_boxplot
+geom_contour{_filled}           stat_contour{_filled}
+geom_count                      stat_sum
+geom_freqpoly, geom_histogram   stat_bin
+geom_smooth                     stat_smooth
+geom_point_range                stat_summary

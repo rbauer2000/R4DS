@@ -1,0 +1,9 @@
+dplyr functions:
+
+    Pick observations by their values (filter()).
+    Reorder the rows (arrange()).
+    Pick variables by their names (select()).
+    Create new variables with functions of existing variables (mutate()).
+    Collapse many values down to a single summary (summarise()).
+    
+These can all be used in conjunction with group_by()
