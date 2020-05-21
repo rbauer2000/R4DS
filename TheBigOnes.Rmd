@@ -1,10 +1,10 @@
 ---
 title: "The Big Ones"
 output:
-  pdf_document: default
-  html_notebook: default
   html_document:
     df_print: paged
+  html_notebook: default
+  pdf_document: default
 ---
 
 ## The Big Ones
@@ -46,11 +46,15 @@ pro.big.ones <- n.big.ones / nrow(carriers)
 pro.big.ones
 ```
 
-So, it looks like in 2013 in NYC there were total of 336776 flights with 91394 were the "big ones" and that gives proportion of 0.2713792
+So, it looks like in 2013 in NYC there were total of 336776 flights with 139504 were the "big ones" and that gives proportion of 0.4142338
 
 This here just list the number of flights grouped by carrier.  The B6 is Bluejet.  EV is ExpressJet Airlines (?).  This R code might not be easy to read because it uses this thing call pipe: %>%.  But basically we start with the data carriers; feed that to group_by which groups by carrier; feed that to summerize which finds the count for each carrier; finally arrange from largers.  And there seems to be only 16 carriers.
 ```{r unique}
-carriers %>% group_by(carrier) %>% summarize(count=n()) %>% arrange(desc(count))
+carrier_count <- carriers %>% group_by(carrier) %>% summarize(count = n()) %>% arrange(desc(count))
+carrier_count
+ggplot(data = carrier_count, mapping = aes(x = carrier, y = count)) +
+geom_point()
+
 ```
 
 So, UA, B6 and EV and even DL have about same so let's see just UA proportiong

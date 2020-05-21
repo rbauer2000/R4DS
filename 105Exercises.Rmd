@@ -1,0 +1,63 @@
+---
+title: "10.5 Exercises"
+output:
+  html_document:
+    df_print: paged
+---
+10.5 Exercises
+
+1. How can you tell if an object is a tibble? (Hint: try printing mtcars, which is a regular data frame).
+
+data frame will try to print all rows while tibble just first 10 by default
+
+```{r}
+mtcars
+```
+
+```{r}
+tb_mtcars <- as_tibble(mtcars)
+tb_mtcars
+```
+
+
+2. Compare and contrast the following operations on a data.frame and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
+
+```{r}
+df <- data.frame(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+df[, c("abc", "xyz")]
+```
+
+```{r}
+tb <- data.frame(abc = 1, xyz = "a")
+tb$x
+tb[, "xyz"]
+tb[, c("abc", "xyz")]
+```
+
+If you have the name of a variable stored in an object, e.g. var <- "mpg", how can you extract the reference variable from a tibble?
+
+Practice referring to non-syntactic names in the following data frame by:
+
+    Extracting the variable called 1.
+
+    Plotting a scatterplot of 1 vs 2.
+
+    Creating a new column called 3 which is 2 divided by 1.
+
+    Renaming the columns to one, two and three.
+
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+
+What does tibble::enframe() do? When might you use it?
+
+What option controls how many additional column names are printed at the footer of a tibble?
+
+```{r}
+plot(cars)
+```
+
